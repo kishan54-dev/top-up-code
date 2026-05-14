@@ -1,0 +1,52 @@
+/* Desktop */
+.container{
+  width: 80%;
+  margin: auto;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px){
+
+  .container{
+    width: 90%;
+  }
+
+  .card{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+/* Mobile */
+@media screen and (max-width: 768px){
+
+  .container{
+    width: 95%;
+  }
+
+  .card{
+    grid-template-columns: 1fr;
+  }
+
+  h1{
+    font-size: 24px;
+  }
+
+  button{
+    width: 100%;
+  }
+
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px){
+
+  h1{
+    font-size: 20px;
+  }
+
+  p{
+    font-size: 14px;
+  }
+
+}

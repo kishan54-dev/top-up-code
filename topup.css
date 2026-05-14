@@ -1,0 +1,199 @@
+/* 🌌 Background */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* 🔙 Back Button */
+.back {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+
+  width: auto !important;
+  display: inline-block;
+
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+
+  background: #00f2ff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: 0 0 10px #00f2ff;
+  z-index: 1000;
+}
+
+/* 📦 Container */
+.container {
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  width: 80%;
+}
+
+/* 🧾 Headings */
+h2, h3 {
+  text-align: center;
+  text-shadow: 0 0 10px #0ff;
+}
+
+/* 💎 Cards */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  margin: 12px 0;
+  padding: 15px;
+  border-radius: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  border: 1px solid rgba(0,255,255,0.2);
+}
+
+/* ✨ Hover Glow Effect */
+.card:hover {
+  transform: scale(1.05);
+  background: rgba(0, 255, 255, 0.15);
+
+  box-shadow: 
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff;
+}
+
+/* 💡 Click effect */
+.card:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 20px #00f;
+}
+
+/* 💳 Buttons */
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #0ff;
+  color: black;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+button:hover {
+  box-shadow: 0 0 15px #0ff;
+}
+
+/* 📥 Input */
+input,
+select {
+  background: #111;
+  color: white;
+
+  border: 1px solid #0ff;
+  margin-top: 10px;
+  padding: 10px;
+
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   📱 Responsive Design
+========================= */
+
+/* 💻 Desktop */
+.container {
+  width: 80%;
+}
+
+
+/* 📲 Tablet */
+@media screen and (max-width: 1024px){
+
+  .container{
+    width: 90%;
+  }
+
+  .card{
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+  }
+
+  .back{
+    top: 15px;
+    left: 15px;
+    padding: 7px 14px;
+  }
+
+}
+
+
+/* 📱 Mobile */
+@media screen and (max-width: 768px){
+
+  .container{
+    width: 95%;
+    padding: 15px;
+  }
+
+  .card{
+    grid-template-columns: 1fr;
+  }
+
+  h2, h3{
+    font-size: 24px;
+  }
+
+  button{
+    width: 100%;
+  }
+
+  .back{
+    top: 10px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+}
+
+
+/* 📱 Small Mobile */
+@media screen and (max-width: 480px){
+
+  h2, h3{
+    font-size: 20px;
+  }
+
+  p{
+    font-size: 14px;
+  }
+
+  .card{
+    padding: 12px;
+  }
+
+  .back{
+    top: 8px;
+    left: 8px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}

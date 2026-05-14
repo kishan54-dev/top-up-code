@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Payment</title>
+  <link rel="stylesheet" href="payment.css">
+<link rel="icon" href="1.jpg">
+  <style>
+    .title {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .info p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: #0ff;
+    }
+
+    .preview {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<button class="back" onclick="goBack()">⬅ Back</button>
+
+<div class="container">
+
+<div class="card">
+  <div class="title">💳 Payment Details</div>
+
+  <div class="info">
+    <p><b>Account No:</b> <span class="highlight">134020110640</span></p>
+    <p><b>Name:</b> <span class="highlight">JOYTHAS K</span></p>
+    <p><b>Bank:</b> <span class="highlight">HNB 🏦</span></p>
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="title">🎮 Order Details</div>
+
+  <!-- UID -->
+    <input type="text" id="uid" placeholder="Enter Game UID">
+
+  <!-- Selected -->
+  <input type="text" id="diamond" readonly>
+
+
+
+  <div class="preview">📌 💳 Pay → 📸 Screenshot → 📲 WhatsApp ( MUST )</div>
+
+  <button onclick="send()">Send via WhatsApp</button>
+
+
+</div>
+
+</div>
+
+<script>
+
+function goBack(){
+  window.location.href="home.html";
+}
+
+// Auto fill selected item
+window.onload = function(){
+  const item = localStorage.getItem("selectedTopup");
+  if(item){
+    document.getElementById("diamond").value = item;
+  }
+}
+
+function send(){
+
+  const uidInput = document.getElementById("uid");
+  const uid = uidInput.value;
+  const item = document.getElementById("diamond").value;
+
+  // முதல்ல reset
+  uidInput.classList.remove("error");
+  uidInput.classList.remove("success");
+
+  // UID emptyனா
+  if(uid === ""){
+    uidInput.classList.add("error");
+    uidInput.placeholder = "⚠ Enter UID";
+    return; // STOP here
+  } else {
+    uidInput.classList.add("success");
+  }
+
+  // Topup select பண்ணலனா stop
+  if(item === ""){
+    return;
+  }
+
+  const number = "94771945590";
+
+  const message = `Hi Bro,
+UID: ${uid}
+Selected: ${item}
+Payment done.`;
+
+  const url = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>

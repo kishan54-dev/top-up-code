@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Top Up List</title>
+  <link rel="icon" href="1.jpg">
+  <link rel="stylesheet" href="topup.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🔥 Top Up List</h2>
+
+<h3>⚡ Membership</h3>
+
+<div class="card" onclick="selectItem('Lite Weekly Membership (120/=)', 'Membership')">
+  <span>Lite Weekly</span>
+  <span>120/=</span>
+</div>
+
+<div class="card" onclick="selectItem('Weekly Membership (520/=)', 'Membership')">
+  <span>Weekly</span>
+  <span>520/=</span>
+</div>
+
+<div class="card" onclick="selectItem('Monthly Membership (2550/=)', 'Membership')">
+  <span>Monthly</span>
+  <span>2550/=</span>
+</div>
+
+<div class="card" onclick="selectItem('VIP Membership (2380/=)', 'Membership')">
+  <span>VIP</span>
+  <span>2380/=</span>
+</div>
+
+<div class="card" onclick="selectItem('S VIP Membership (4630/=)', 'Membership')">
+  <span>S VIP</span>
+  <span>4630/=</span>
+</div>
+
+<div class="card" onclick="selectItem('Level UP Pass (1370/=)', 'Membership')">
+  <span>Level UP Pass</span>
+  <span>1370/=</span>
+</div>
+
+<h3>💎 Diamonds</h3>
+
+<div class="card" onclick="selectItem('25 Diamonds (130/=)', 'Diamonds')">25 💎 <span>130/=</span></div>
+<div class="card" onclick="selectItem('100 Diamonds (380/=)', 'Diamonds')">100 💎 <span>380/=</span></div>
+<div class="card" onclick="selectItem('310 Diamonds (1050/=)', 'Diamonds')">310 💎 <span>1050/=</span></div>
+<div class="card" onclick="selectItem('520 Diamonds (1570/=)', 'Diamonds')">520 💎 <span>1570/=</span></div>
+<div class="card" onclick="selectItem('1060 Diamonds (3300/=)', 'Diamonds')">1060 💎 <span>3300/=</span></div>
+<div class="card" onclick="selectItem('2180 Diamonds (6550/=)', 'Diamonds')">2180 💎 <span>6550/=</span></div>
+<div class="card" onclick="selectItem('5600 Diamonds (16000/=)', 'Diamonds')">5600 💎 <span>16000/=</span></div>
+<div class="card" onclick="selectItem('11500 Diamonds (29000/=)', 'Diamonds')">11500 💎 <span>29000/=</span></div>
+
+<h3>🎮 EVO Access</h3>
+
+<div class="card" onclick="selectItem('3 Day EVO Access (220/=)', 'EVO Access')">3 Day <span>220/=</span></div>
+<div class="card" onclick="selectItem('7 Day EVO Access (330/=)', 'EVO Access')">7 Day <span>330/=</span></div>
+<div class="card" onclick="selectItem('30 Day EVO Access (900/=)', 'EVO Access')">30 Day <span>900/=</span></div>
+
+</div>
+
+<script>
+
+function goBack(){
+  window.location.href="home.html";
+}
+
+function selectItem(name, type){
+  const fullItem = type + " - " + name;
+  localStorage.setItem("selectedTopup", fullItem);
+  window.location.href = "payment.html";
+}
+
+</script>
+
+</body>
+</html>

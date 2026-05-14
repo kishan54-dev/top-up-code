@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HOME</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="media.css">
+  <link rel="icon" href="1.jpg">
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .header {
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+      text-shadow:
+        0 0 10px #17b8c0,
+        0 0 20px #17b8c0,
+        0 0 40px #17b8c0,
+        0 0 80px #17b8c0;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+      border: 1px solid #334155;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #334155;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #94a3b8;
+    }
+
+    .logout {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      background: red;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">℘ㅤᎮիѻєɳıẋㅤƬƠƤ ƲƤ</div>
+
+<div class="container">
+
+ <div class="card" onclick="goTopup()">
+    <h2>💎 Top-up Shop</h2>
+    <p>Buy diamonds easily</p>
+  </div>
+
+  <div class="card" onclick="goPayment()">
+    <h2>💳 Payment Methods</h2>
+    <p>View bank details & upload receipt</p>
+  </div>
+
+<div class="card" onclick="goWhatsApp()">
+    <h2>📲 WhatsApp Contact</h2>
+    <p>Chat directly for support</p>
+  </div>
+
+</div>
+
+<button class="logout" onclick="logout()">Logout</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABYByDW8bAOCHfCwcRNaSN1wwifQEhzA4",
+  authDomain: "freefiretopup-bbb23.firebaseapp.com",
+  projectId: "freefiretopup-bbb23",
+  storageBucket: "freefiretopup-bbb23.firebasestorage.app",
+  messagingSenderId: "305435218774",
+  appId: "1:305435218774:web:d258e8218bd1bdec50fcf7",
+  measurementId: "G-HLNGZ236PZ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// 🔐 protect page (FIXED)
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.replace("index.html");
+  }
+});
+
+// navigation (UNCHANGED)
+window.goWhatsApp = () => window.location.href = "whatsapp.html";
+window.goPayment = () => window.location.href = "payment.html";
+window.goTopup = () => window.location.href = "topup.html";
+
+// ✅ logout (FIXED)
+window.logout = async function() {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+</script>
+
+</body>
+</html>
