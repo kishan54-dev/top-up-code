@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>HOME</title>
 
   <link rel="stylesheet" href="style.css">
@@ -30,6 +30,20 @@
         0 0 40px #17b8c0,
         0 0 80px #17b8c0;
       letter-spacing: 2px;
+      position: relative;
+    }
+
+     /* ✅ Profile icon style */
+    .profile-icon {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #17b8c0;
+      cursor: pointer;
     }
 
     .container {
@@ -62,22 +76,16 @@
       color: #94a3b8;
     }
 
-    .logout {
-      display: block;
-      margin: 30px auto;
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: none;
-      background: red;
-      color: white;
-      cursor: pointer;
-    }
   </style>
 </head>
 
 <body>
 
-<div class="header">℘ㅤᎮիѻєɳıẋㅤƬƠƤ ƲƤ</div>
+<div class="header">Ꭾիѻєɳıẋ ƬƠƤ ƲƤ</div>
+
+  <!-- ✅ Profile Icon -->
+  <img id="profileImg" class="profile-icon" src="pro.jpg" onclick="goProfile()">
+</div>
 
 <div class="container">
 
@@ -98,12 +106,12 @@
 
 </div>
 
-<button class="logout" onclick="logout()">Logout</button>
+
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyABYByDW8bAOCHfCwcRNaSN1wwifQEhzA4",
@@ -118,26 +126,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 🔐 protect page (FIXED)
+// ✅ USER CHECK
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.replace("index.html");
+  const img = document.getElementById("profileImg");
+
+  if (user && user.photoURL) {
+    img.src = user.photoURL;
+  } else {
+    img.src = "pro.jpg";
   }
 });
 
-// navigation (UNCHANGED)
+// ✅ NAVIGATION
 window.goWhatsApp = () => window.location.href = "whatsapp.html";
 window.goPayment = () => window.location.href = "payment.html";
 window.goTopup = () => window.location.href = "topup.html";
-
-// ✅ logout (FIXED)
-window.logout = async function() {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.error(error);
-  }
-};
+window.goProfile = () => window.location.href = "profile.html";
 
 </script>
 
