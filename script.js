@@ -38,9 +38,13 @@ import {
 
 // 🔥 உன் config வை
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
+  apiKey: "AIzaSyABYByDW8bAOCHfCwcRNaSN1wwifQEhzA4",
+  authDomain: "freefiretopup-bbb23.firebaseapp.com",
+  projectId: "freefiretopup-bbb23",
+  storageBucket: "freefiretopup-bbb23.firebasestorage.app",
+  messagingSenderId: "305435218774",
+  appId: "1:305435218774:web:d258e8218bd1bdec50fcf7",
+  measurementId: "G-HLNGZ236PZ"
 };
 
 const app = initializeApp(firebaseConfig);
