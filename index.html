@@ -139,12 +139,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+let redirected = false;
+
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // small delay to avoid loop
-    setTimeout(() => {
-      window.location.href = "home.html";
-    }, 500);
+  if (user && !redirected) {
+    redirected = true;
+
+    localStorage.setItem("userId", user.uid);
+
+    window.location.href = "home.html";
   }
 });
 
@@ -158,6 +161,9 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
 
+
+        // ✅ Save current user
+localStorage.setItem("currentUser", email);
     
 
       document.getElementById("successMessage").style.display = "block";
