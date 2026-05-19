@@ -4,72 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
-<link rel="stylesheet" href="ep.css">
-<link rel="stylesheet" href="media.css">
+
+<style>
+body{
+  font-family: Arial;
+  background: #52717e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-container{
+  background: #000000;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.profile-img-box img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+button{
+  margin-top: 10px;
+  padding: 8px 15px;
+  border: none;
+  background: #569ca1;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+input{
+  width: 90%;
+  margin: 8px 0;
+  padding: 8px;
+}
+</style>
 
 </head>
 
 <body>
+  
+  <script>
 
-<div class="profile-card">
-  <img id="profileImage" class="avatar">
-  <h2 id="username">User Name</h2>
+// 🔐 check user login
+let userId = localStorage.getItem("userId");
 
-  <button onclick="editProfile()">Edit Profile</button>
-  <button onclick="logout()">Logout</button>
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// 🔥 UN FIREBASE CONFIG ADD PANNU
-const firebaseConfig = {
-  apiKey: "AIzaSyABYByDW8bAOCHfCwcRNaSN1wwifQEhzA4",
-  authDomain: "freefiretopup-bbb23.firebaseapp.com",
-  projectId: "freefiretopup-bbb23",
-  storageBucket: "freefiretopup-bbb23.firebasestorage.app",
-  messagingSenderId: "305435218774",
-  appId: "1:305435218774:web:d258e8218bd1bdec50fcf7",
-  measurementId: "G-HLNGZ236PZ"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  if(user){
-    let uid = user.uid;
-
-    let name = localStorage.getItem(uid + "_name");
-    let img = localStorage.getItem(uid + "_img");
-
-    if(name){
-      document.getElementById("username").innerText = name;
-    }
-
-    if(img){
-      document.getElementById("profileImage").src = img;
-    } else {
-      document.getElementById("profileImage").src = "";
-    }
-
-  } else {
-    window.location.href = "index.html";
-  }
-});
-
-window.logout = function(){
-  signOut(auth);
+if (!userId) {
   window.location.href = "index.html";
-}
-
-window.editProfile = function(){
-  window.location.href = "edit.html";
+} else {
+  console.log("User logged in:", userId);
 }
 
 </script>
+
+<div class="profile-container">
+
+  <!-- Image -->
+  <div class="profile-img-box">
+    <img id="profilePic" src="https://via.placeholder.com/100">
+    <input type="file" id="upload" hidden>
+    <br>
+    <button onclick="uploadImg()">Change Photo</button>
+  </div>
+
+  <!-- Info -->
+  <div class="profile-info">
+    <input type="text" id="username" placeholder="Username">
+    <input type="email" id="email" placeholder="Email">
+    <button onclick="saveProfile()">Save Changes</button>
+  </div>
+
+</div>
+
+<script src="profile.js"></script>
 
 </body>
 </html>
