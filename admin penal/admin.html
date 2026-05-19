@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+body {
+  display: flex;
+  background: #0f172a;
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #020617;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #38bdf8;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  background: #1e293b;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar button:hover {
+  background: #38bdf8;
+  color: black;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logout {
+  background: red;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card p {
+  font-size: 22px;
+  color: #38bdf8;
+}
+
+/* Content box */
+.content {
+  margin-top: 30px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>ADMIN</h2>
+
+  <button onclick="showDashboard()">🏠 Dashboard</button>
+  <button onclick="viewUsers()">👤 Users</button>
+  <button onclick="viewTopups()">💰 Topups</button>
+  <button onclick="viewOrders()">📦 Orders</button>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <div class="topbar">
+    <h1>Admin Dashboard 🔥</h1>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards">
+    <div class="card">
+      <h3>Total Users</h3>
+      <p id="usersCount">0</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Orders</h3>
+      <p id="ordersCount">0</p>
+    </div>
+
+    <div class="card">
+      <h3>Topups</h3>
+      <p id="topupCount">0</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="contentBox">
+    Welcome Admin 👑
+  </div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABYByDW8bAOCHfCwcRNaSN1wwifQEhzA4",
+  authDomain: "freefiretopup-bbb23.firebaseapp.com",
+  projectId: "freefiretopup-bbb23"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 🔒 Protect admin page
+if (localStorage.getItem("admin") !== "true") {
+  window.location.href = "index.html";
+}
+
+// Logout
+window.logout = function () {
+  signOut(auth).then(() => {
+    localStorage.removeItem("admin");
+    window.location.href = "index.html";
+  });
+};
+
+const box = document.getElementById("contentBox");
+
+// Dashboard
+window.showDashboard = function () {
+  box.innerHTML = "Dashboard Overview 📊";
+};
+
+// 🔥 Users (Firestore)
+window.viewUsers = async function () {
+
+  const snapshot = await getDocs(collection(db, "users"));
+
+  let html = "<h2>👤 Users List</h2><br>";
+
+  snapshot.forEach((doc) => {
+    let data = doc.data();
+
+    html += `
+      <p>
+        👤 ${data.name} <br>
+        📧 ${data.email}
+      </p>
+      <hr>
+    `;
+  });
+
+  box.innerHTML = html;
+};
+
+// Other buttons
+window.viewTopups = function () {
+  box.innerHTML = "💰 Topup Requests";
+};
+
+window.viewOrders = function () {
+  box.innerHTML = "📦 Orders";
+};
+
+// 🔥 Load counts
+async function loadCounts() {
+  const snapshot = await getDocs(collection(db, "users"));
+  document.getElementById("usersCount").innerText = snapshot.size;
+}
+
+loadCounts();
+
+</script>
+
+</body>
+</html>
