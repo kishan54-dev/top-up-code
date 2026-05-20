@@ -75,7 +75,7 @@
 </div>
 
 <div class="preview">
-📌Complete payment and upload receipt to confirm your order
+📌Complete payment and upload receipt to confirm your order.
 </div>
 
 
@@ -186,14 +186,14 @@ async function submitOrder(){
 
    msg.style.opacity = "0";
 
-  },10000);
+  },1000);
 
   return;
 
  }
 
 
- // TELEGRAM PHOTO SEND
+ // TELEGRAM DATA
 
  const formData =
  new FormData();
@@ -220,22 +220,7 @@ Top Up: ${item}`
  );
 
 
- await fetch(
-
- "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
-
- {
-
-  method:"POST",
-
-  body: formData
-
- }
-
- );
-
-
- // WHATSAPP AUTO MESSAGE
+ // WHATSAPP MESSAGE
 
  const number =
  "94771945590";
@@ -257,47 +242,47 @@ Payment Done.`;
  encodeURIComponent(message);
 
 
-// WHATSAPP OPEN FIRST
+ // OPEN WHATSAPP FIRST
 
-window.open(url,"_blank");
-
-
-// TELEGRAM SEND AFTER SMALL DELAY
-
-setTimeout(async ()=>{
-
- await fetch(
-
- "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
-
- {
-
-  method:"POST",
-
-  body: formData
-
- }
-
- );
+ window.location.href = url;
 
 
- // SUCCESS MESSAGE
+ // TELEGRAM SEND AFTER DELAY
 
- const msg =
- document.getElementById("msg");
+ setTimeout(async ()=>{
 
- msg.innerText =
- "Sent To Admin ✅";
+  await fetch(
 
- msg.style.opacity = "1";
+  "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
 
- setTimeout(()=>{
+  {
 
-  msg.style.opacity = "0";
+   method:"POST",
+
+   body: formData
+
+  }
+
+  );
+
+
+  // SUCCESS MESSAGE
+
+  const msg =
+  document.getElementById("msg");
+
+  msg.innerText =
+  "Sent To Admin ✅";
+
+  msg.style.opacity = "1";
+
+  setTimeout(()=>{
+
+   msg.style.opacity = "0";
+
+  },1000);
 
  },1000);
-
-},1000);
 
 }
 
