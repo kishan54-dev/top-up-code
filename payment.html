@@ -34,8 +34,6 @@
 
 <body>
 
-<button class="back" onclick="goBack()">⬅ Back</button>
-
 <div class="container">
 
 <div class="card">
@@ -58,11 +56,29 @@
   <!-- Selected -->
   <input type="text" id="diamond" readonly>
 
+<div class="upload-box">
+
+  <h2>Upload Receipt</h2>
+
+<label for="photo" class="custom-file">
+ Choose Receipt
+</label>
+
+<input type="file" id="photo">
+
+<p id="fileText"></p>
+
+<button onclick="submitOrder()">
+ Submit Top Up
+</button>
+   <p id="msg"></p>
+</div>
+
+<div class="preview">
+📌Complete payment and upload receipt to confirm your order
+</div>
 
 
-  <div class="preview">📌 💳 Pay → 📸 Screenshot → 📲 WhatsApp ( MUST )</div>
-
-  <button onclick="send()">Send via WhatsApp</button>
 
 
 </div>
@@ -71,53 +87,197 @@
 
 <script>
 
+// FILE SELECT TEXT
+
+const photo =
+document.getElementById("photo");
+
+const fileText =
+document.getElementById("fileText");
+
+photo.addEventListener("change", ()=>{
+
+ fileText.innerText =
+ "Receipt Selected ✅";
+
+});
+
+
+// BACK BUTTON
+
 function goBack(){
-  window.location.href="home.html";
+
+ window.location.href="home.html";
+
 }
 
-// Auto fill selected item
+
+// AUTO FILL TOPUP
+
 window.onload = function(){
-  const item = localStorage.getItem("selectedTopup");
-  if(item){
-    document.getElementById("diamond").value = item;
-  }
+
+ const item =
+ localStorage.getItem("selectedTopup");
+
+ if(item){
+
+  document.getElementById("diamond").value = item;
+
+ }
+
 }
 
-function send(){
 
-  const uidInput = document.getElementById("uid");
-  const uid = uidInput.value;
-  const item = document.getElementById("diamond").value;
+// MAIN SUBMIT FUNCTION
 
-  // முதல்ல reset
-  uidInput.classList.remove("error");
-  uidInput.classList.remove("success");
+async function submitOrder(){
 
-  // UID emptyனா
-  if(uid === ""){
-    uidInput.classList.add("error");
-    uidInput.placeholder = "⚠ Enter UID";
-    return; // STOP here
-  } else {
-    uidInput.classList.add("success");
-  }
+ const uidInput =
+ document.getElementById("uid");
 
-  // Topup select பண்ணலனா stop
-  if(item === ""){
-    return;
-  }
+ const uid =
+ uidInput.value;
 
-  const number = "94771945590";
+ const item =
+ document.getElementById("diamond").value;
 
-  const message = `Hi Bro,
+ const file =
+ document.getElementById("photo").files[0];
+
+
+ // RESET
+
+ uidInput.classList.remove("error");
+
+ uidInput.classList.remove("success");
+
+
+ // UID CHECK
+
+ if(uid === ""){
+
+  uidInput.classList.add("error");
+
+  uidInput.placeholder =
+  "⚠ Enter UID";
+
+  return;
+
+ }else{
+
+  uidInput.classList.add("success");
+
+ }
+
+
+ // RECEIPT CHECK
+
+ if(!file){
+
+  const msg =
+  document.getElementById("msg");
+
+  msg.innerText =
+  "Select Receipt ⚠";
+
+  msg.style.opacity = "1";
+
+  setTimeout(()=>{
+
+   msg.style.opacity = "0";
+
+  },10000);
+
+  return;
+
+ }
+
+
+ // TELEGRAM PHOTO SEND
+
+ const formData =
+ new FormData();
+
+ formData.append(
+  "chat_id",
+  "7090493537"
+ );
+
+ formData.append(
+  "photo",
+  file
+ );
+
+ formData.append(
+  "caption",
+
+`🎮 New Order
+
+UID: ${uid}
+
+Top Up: ${item}`
+
+ );
+
+
+ await fetch(
+
+ "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
+
+ {
+
+  method:"POST",
+
+  body: formData
+
+ }
+
+ );
+
+
+ // WHATSAPP AUTO MESSAGE
+
+ const number =
+ "94771945590";
+
+
+ const message =
+
+`Hi Bro,
 UID: ${uid}
 Selected: ${item}
-Payment done.`;
+Payment Done.`;
 
-  const url = "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
 
-  window.open(url, "_blank");
+ const url =
+
+ "https://wa.me/" +
+ number +
+ "?text=" +
+ encodeURIComponent(message);
+
+
+ window.open(url,"_blank");
+
+
+ // SUCCESS MESSAGE
+
+ const msg =
+ document.getElementById("msg");
+
+ msg.innerText =
+ "Sent To Admin ✅";
+
+ msg.style.opacity = "1";
+
+ setTimeout(()=>{
+
+  msg.style.opacity = "0";
+
+ },1000);
+
 }
+
 </script>
 
 </body>
