@@ -257,7 +257,28 @@ Payment Done.`;
  encodeURIComponent(message);
 
 
- window.open(url,"_blank");
+// WHATSAPP OPEN FIRST
+
+window.open(url,"_blank");
+
+
+// TELEGRAM SEND AFTER SMALL DELAY
+
+setTimeout(async ()=>{
+
+ await fetch(
+
+ "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
+
+ {
+
+  method:"POST",
+
+  body: formData
+
+ }
+
+ );
 
 
  // SUCCESS MESSAGE
@@ -275,6 +296,8 @@ Payment Done.`;
   msg.style.opacity = "0";
 
  },1000);
+
+},1000);
 
 }
 
