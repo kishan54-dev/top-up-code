@@ -119,7 +119,8 @@
 
       <input
       type="file"
-      id="photo">
+      id="photo"
+      accept="image/*">
 
       <p id="fileText"></p>
 
@@ -275,76 +276,87 @@ async function submitOrder(){
 
 
 
- // CONVERT PHOTO TO BASE64
+ // LOADING MESSAGE
 
- const reader =
- new FileReader();
+ msg.innerText =
+ "Sending Receipt...";
 
- reader.readAsDataURL(file);
-
-
-
- reader.onload = async ()=>{
-
-
-  const base64Photo =
-  reader.result;
+ msg.style.opacity =
+ "1";
 
 
 
-  // SEND DATA TO NETLIFY BACKEND
+ // TELEGRAM DATA
 
+ const formData =
+ new FormData();
+
+ formData.append(
+  "chat_id",
+  "7090493537"
+ );
+
+ formData.append(
+  "photo",
+  file
+ );
+
+ formData.append(
+  "caption",
+
+`🎮 New Order
+
+UID: ${uid}
+
+Top Up: ${item}`
+
+ );
+
+
+
+ try{
+
+
+  // SEND PHOTO TO TELEGRAM FIRST
+
+  const response =
   await fetch(
 
-  "https://phoenix-jk.netlify.app/.netlify/functions/send",
+  "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
 
   {
 
    method:"POST",
 
-   headers:{
-    "Content-Type":"application/json"
-   },
-
-   body: JSON.stringify({
-
-    uid: uid,
-
-    item: item,
-
-    photo: base64Photo
-
-   })
+   body: formData
 
   }
 
   );
 
 
-
-  // SUCCESS MESSAGE
-
-  msg.innerText =
-  "Sent To Admin ✅";
-
-  msg.style.opacity = "1";
-
-  setTimeout(()=>{
-
-   msg.style.opacity = "0";
-
-  },1000);
+  const result =
+  await response.json();
 
 
 
+  // SUCCESS CHECK
 
-  // WHATSAPP MESSAGE
-
-  const number =
-  "94771945590";
+  if(result.ok){
 
 
-  const message =
+   msg.innerText =
+   "Sent To Admin ✅";
+
+
+
+   // WHATSAPP MESSAGE
+
+   const number =
+   "94771945590";
+
+
+   const message =
 
 `Hi Bro,
 UID: ${uid}
@@ -352,22 +364,52 @@ Selected: ${item}
 Payment Done.`;
 
 
-  const url =
+   const url =
 
-  "https://wa.me/" +
-  number +
-  "?text=" +
-  encodeURIComponent(message);
-
-
+   "https://wa.me/" +
+   number +
+   "?text=" +
+   encodeURIComponent(message);
 
 
-  // OPEN WHATSAPP
 
-  window.location.href =
-  url;
 
- };
+   // OPEN WHATSAPP AFTER SUCCESS
+
+   setTimeout(()=>{
+
+    window.location.href =
+    url;
+
+   },1000);
+
+
+  }else{
+
+
+   msg.innerText =
+   "Telegram Send Failed ⚠";
+
+
+  }
+
+
+ }catch(error){
+
+
+  msg.innerText =
+  "Network Error ⚠";
+
+
+ }
+
+
+ setTimeout(()=>{
+
+  msg.style.opacity =
+  "0";
+
+ },3000);
 
 }
 
