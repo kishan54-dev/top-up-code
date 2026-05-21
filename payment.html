@@ -275,57 +275,76 @@ async function submitOrder(){
 
 
 
- // SEND DATA TO NETLIFY BACKEND
+ // CONVERT PHOTO TO BASE64
 
- await fetch(
+ const reader =
+ new FileReader();
 
- "https://phoenix-jk.netlify.app/.netlify/functions/send",
-
- {
-
-  method:"POST",
-
-  headers:{
-   "Content-Type":"application/json"
-  },
-
-  body: JSON.stringify({
-
-   uid: uid,
-
-   item: item
-
-  })
-
- }
-
- );
+ reader.readAsDataURL(file);
 
 
 
- // SUCCESS MESSAGE
+ reader.onload = async ()=>{
 
- msg.innerText =
- "Sent To Admin ✅";
 
- msg.style.opacity = "1";
-
- setTimeout(()=>{
-
-  msg.style.opacity = "0";
-
- },1000);
+  const base64Photo =
+  reader.result;
 
 
 
+  // SEND DATA TO NETLIFY BACKEND
 
- // WHATSAPP MESSAGE
+  await fetch(
 
- const number =
- "94771945590";
+  "https://phoenix-jk.netlify.app/.netlify/functions/send",
+
+  {
+
+   method:"POST",
+
+   headers:{
+    "Content-Type":"application/json"
+   },
+
+   body: JSON.stringify({
+
+    uid: uid,
+
+    item: item,
+
+    photo: base64Photo
+
+   })
+
+  }
+
+  );
 
 
- const message =
+
+  // SUCCESS MESSAGE
+
+  msg.innerText =
+  "Sent To Admin ✅";
+
+  msg.style.opacity = "1";
+
+  setTimeout(()=>{
+
+   msg.style.opacity = "0";
+
+  },1000);
+
+
+
+
+  // WHATSAPP MESSAGE
+
+  const number =
+  "94771945590";
+
+
+  const message =
 
 `Hi Bro,
 UID: ${uid}
@@ -333,20 +352,22 @@ Selected: ${item}
 Payment Done.`;
 
 
- const url =
+  const url =
 
- "https://wa.me/" +
- number +
- "?text=" +
- encodeURIComponent(message);
-
-
+  "https://wa.me/" +
+  number +
+  "?text=" +
+  encodeURIComponent(message);
 
 
- // OPEN WHATSAPP
 
- window.location.href =
- url;
+
+  // OPEN WHATSAPP
+
+  window.location.href =
+  url;
+
+ };
 
 }
 

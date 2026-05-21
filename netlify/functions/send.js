@@ -1,18 +1,28 @@
 exports.handler = async (event) => {
 
- const data = JSON.parse(event.body);
+ try{
 
- const uid = data.uid;
+  const data =
+  JSON.parse(event.body);
 
- const item = data.item;
+  const uid =
+  data.uid;
 
- const BOT_TOKEN =
- "8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw";
+  const item =
+  data.item;
 
- const CHAT_ID =
- "7090493537";
+  const photo =
+  data.photo;
 
- const message =
+
+  const BOT_TOKEN =
+  "8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw";
+
+  const CHAT_ID =
+  "7090493537";
+
+
+  const caption =
 
 `🎮 New Order
 
@@ -20,40 +30,56 @@ UID: ${uid}
 
 Top Up: ${item}`;
 
- await fetch(
 
-`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+  await fetch(
 
- {
+  `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,
 
-  method:"POST",
+  {
 
-  headers:{
-   "Content-Type":"application/json"
-  },
+   method:"POST",
 
-  body: JSON.stringify({
+   headers:{
+    "Content-Type":"application/json"
+   },
 
-   chat_id: CHAT_ID,
+   body: JSON.stringify({
 
-   text: message
+    chat_id: CHAT_ID,
 
-  })
+    photo: photo,
+
+    caption: caption
+
+   })
+
+  }
+
+  );
+
+
+  return{
+
+   statusCode:200,
+
+   body:JSON.stringify({
+
+    success:true
+
+   })
+
+  };
+
+ }catch(error){
+
+  return{
+
+   statusCode:500,
+
+   body:error.toString()
+
+  };
 
  }
-
- );
-
- return {
-
-  statusCode:200,
-
-  body:JSON.stringify({
-
-   success:true
-
-  })
-
- };
 
 };
