@@ -2,32 +2,38 @@
 <html>
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <title>Payment</title>
+
   <link rel="stylesheet" href="payment.css">
-<link rel="icon" href="1.jpg">
+  <link rel="icon" href="1.jpg">
+
   <style>
-    .title {
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px #0ff;
+
+    .title{
+      text-align:center;
+      font-size:22px;
+      margin-bottom:15px;
+      text-shadow:0 0 10px #0ff;
     }
 
-    .info p {
-      margin: 5px 0;
-      font-size: 14px;
+    .info p{
+      margin:5px 0;
+      font-size:14px;
     }
 
-    .highlight {
-      color: #0ff;
+    .highlight{
+      color:#0ff;
     }
 
-    .preview {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #aaa;
+    .preview{
+      margin-top:10px;
+      font-size:13px;
+      color:#aaa;
     }
+
   </style>
 
 </head>
@@ -36,56 +42,117 @@
 
 <div class="container">
 
-<div class="card">
-  <div class="title">💳 Payment Details</div>
+  <!-- PAYMENT CARD -->
 
-  <div class="info">
-    <p><b>Account No:</b> <span class="highlight">134020110640</span></p>
-    <p><b>Name:</b> <span class="highlight">JOYTHAS K</span></p>
-    <p><b>Bank:</b> <span class="highlight">HNB 🏦</span></p>
+  <div class="card">
+
+    <div class="title">
+      💳 Payment Details
+    </div>
+
+    <div class="info">
+
+      <p>
+        <b>Account No:</b>
+        <span class="highlight">
+          134020110640
+        </span>
+      </p>
+
+      <p>
+        <b>Name:</b>
+        <span class="highlight">
+          JOYTHAS K
+        </span>
+      </p>
+
+      <p>
+        <b>Bank:</b>
+        <span class="highlight">
+          HNB 🏦
+        </span>
+      </p>
+
+    </div>
+
   </div>
+
+
+  <!-- ORDER CARD -->
+
+  <div class="card">
+
+    <div class="title">
+      🎮 Order Details
+    </div>
+
+
+    <!-- UID -->
+
+    <input
+    type="text"
+    id="uid"
+    placeholder="Enter Game UID">
+
+
+    <!-- TOPUP -->
+
+    <input
+    type="text"
+    id="diamond"
+    readonly>
+
+
+    <!-- RECEIPT -->
+
+    <div class="upload-box">
+
+      <h2>Upload Receipt</h2>
+
+      <label
+      for="photo"
+      class="custom-file">
+
+        Choose Receipt
+
+      </label>
+
+      <input
+      type="file"
+      id="photo">
+
+      <p id="fileText"></p>
+
+
+      <!-- SUBMIT BUTTON -->
+
+      <button onclick="submitOrder()">
+
+        Submit Top Up
+
+      </button>
+
+      <p id="msg"></p>
+
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="preview">
+
+      📌 Complete payment and upload receipt to confirm your order.
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="card">
 
-  <div class="title">🎮 Order Details</div>
-
-  <!-- UID -->
-    <input type="text" id="uid" placeholder="Enter Game UID">
-
-  <!-- Selected -->
-  <input type="text" id="diamond" readonly>
-
-<div class="upload-box">
-
-  <h2>Upload Receipt</h2>
-
-<label for="photo" class="custom-file">
- Choose Receipt
-</label>
-
-<input type="file" id="photo">
-
-<p id="fileText"></p>
-
-<button onclick="submitOrder()">
- Submit Top Up
-</button>
-   <p id="msg"></p>
-</div>
-
-<div class="preview">
-📌Complete payment and upload receipt to confirm your order.
-</div>
-
-
-
-
-</div>
-
-</div>
 
 <script>
+
 
 // FILE SELECT TEXT
 
@@ -103,13 +170,18 @@ photo.addEventListener("change", ()=>{
 });
 
 
+
+
 // BACK BUTTON
 
 function goBack(){
 
- window.location.href="home.html";
+ window.location.href =
+ "home.html";
 
 }
+
+
 
 
 // AUTO FILL TOPUP
@@ -121,16 +193,22 @@ window.onload = function(){
 
  if(item){
 
-  document.getElementById("diamond").value = item;
+  document.getElementById("diamond").value =
+  item;
 
  }
 
-}
+};
+
+
 
 
 // MAIN SUBMIT FUNCTION
 
 async function submitOrder(){
+
+
+ // INPUTS
 
  const uidInput =
  document.getElementById("uid");
@@ -144,12 +222,17 @@ async function submitOrder(){
  const file =
  document.getElementById("photo").files[0];
 
+ const msg =
+ document.getElementById("msg");
+
+
 
  // RESET
 
  uidInput.classList.remove("error");
 
  uidInput.classList.remove("success");
+
 
 
  // UID CHECK
@@ -170,12 +253,10 @@ async function submitOrder(){
  }
 
 
+
  // RECEIPT CHECK
 
  if(!file){
-
-  const msg =
-  document.getElementById("msg");
 
   msg.innerText =
   "Select Receipt ⚠";
@@ -193,31 +274,49 @@ async function submitOrder(){
  }
 
 
- // TELEGRAM DATA
 
- const formData =
- new FormData();
+ // SEND DATA TO NETLIFY BACKEND
 
- formData.append(
-  "chat_id",
-  "7090493537"
+ await fetch(
+
+ "https://phoenix-jk.netlify.app/.netlify/functions/send",
+
+ {
+
+  method:"POST",
+
+  headers:{
+   "Content-Type":"application/json"
+  },
+
+  body: JSON.stringify({
+
+   uid: uid,
+
+   item: item
+
+  })
+
+ }
+
  );
 
- formData.append(
-  "photo",
-  file
- );
 
- formData.append(
-  "caption",
 
-`🎮 New Order
+ // SUCCESS MESSAGE
 
-UID: ${uid}
+ msg.innerText =
+ "Sent To Admin ✅";
 
-Top Up: ${item}`
+ msg.style.opacity = "1";
 
- );
+ setTimeout(()=>{
+
+  msg.style.opacity = "0";
+
+ },1000);
+
+
 
 
  // WHATSAPP MESSAGE
@@ -242,49 +341,15 @@ Payment Done.`;
  encodeURIComponent(message);
 
 
- // OPEN WHATSAPP FIRST
-
- window.location.href = url;
 
 
- // TELEGRAM SEND AFTER DELAY
+ // OPEN WHATSAPP
 
- setTimeout(async ()=>{
-
-  await fetch(
-
-  "https://api.telegram.org/bot8960233712:AAFe7KEsj2BLb4AjwIiy5KQEdlke8CFmeLw/sendPhoto",
-
-  {
-
-   method:"POST",
-
-   body: formData
-
-  }
-
-  );
-
-
-  // SUCCESS MESSAGE
-
-  const msg =
-  document.getElementById("msg");
-
-  msg.innerText =
-  "Sent To Admin ✅";
-
-  msg.style.opacity = "1";
-
-  setTimeout(()=>{
-
-   msg.style.opacity = "0";
-
-  },1000);
-
- },1000);
+ window.location.href =
+ url;
 
 }
+
 
 </script>
 
