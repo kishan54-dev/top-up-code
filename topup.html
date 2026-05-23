@@ -9,6 +9,26 @@
 </head>
 
 <body>
+
+<div class="neon-bg"></div>
+<style>
+.neon-bg{
+position:fixed;
+inset:0;
+pointer-events:none;
+background:
+radial-gradient(circle at 20% 20%, rgba(0,255,255,.12), transparent 20%),
+radial-gradient(circle at 80% 30%, rgba(140,0,255,.15), transparent 20%),
+radial-gradient(circle at 50% 80%, rgba(255,0,200,.10), transparent 20%);
+animation: pulseBg 6s infinite alternate;
+z-index:-1;
+}
+@keyframes pulseBg{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+</style>
+
 <h2>🔥 Top Up List</h2>
 
 <h3>⚡ Membership</h3>

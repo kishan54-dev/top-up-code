@@ -1,172 +1,3 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
-}
-
-/* Container */
-.container {
-  width: 80%;
-  max-width: 400px;
-  margin: auto;
-  margin-top: 40px;
-}
-
-/* Card */
-.card {
-  background: rgba(0,0,0,0.6);
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px #00f2ff;
-  backdrop-filter: blur(10px);
-
-  display: grid;
-  gap: 15px;
-}
-
-/* Title */
-.title {
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 10px;
-  text-shadow: 0 0 10px #00f2ff;
-}
-
-/* Text highlight */
-.highlight {
-  color: #00f2ff;
-}
-
-/* Input fields */
-input {
-  width: 96%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: #111;
-  color: white;
-  box-shadow: 0 0 9px #00f2ff inset;
-}
-
-/* File input */
-input[type="file"] {
-  background: none;
-  box-shadow: none;
-}
-
-/* Button */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #00f2ff;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #00c3cc;
-  box-shadow: 0 0 15px #00f2ff;
-}
-
-/* Back button */
-.back {
-  width: auto !important;
-  padding: 8px 15px;
-  margin: 10px;
-  border-radius: 8px;
-  border: none;
-  background: #00f2ff;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-block;
-  box-shadow: 0 0 10px #00f2ff;
-}
-
-.back:hover {
-  box-shadow: 0 0 20px #00f2ff;
-}
-
-/* Small text */
-.preview {
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 5px;
-}
-
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
-
-/* Tablet */
-@media screen and (max-width: 1024px) {
-
-  .container {
-    width: 90%;
-  }
-
-  .card {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Mobile */
-@media screen and (max-width: 768px) {
-
-  .container {
-    width: 95%;
-  }
-
-  .card {
-    grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  input {
-    width: 94%;
-  }
-}
-
-/* Small Mobile */
-@media screen and (max-width: 480px) {
-
-  h1 {
-    font-size: 20px;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
-  .title {
-    font-size: 18px;
-  }
-
-  .card {
-    padding: 12px;
-  }
-
-  button {
-    padding: 10px;
-  }
-}
-
 *{
   margin:0;
   padding:0;
@@ -174,24 +5,122 @@ button:hover {
   font-family:'Poppins',sans-serif;
 }
 
+/* BODY */
+
 body{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 
   background:
   linear-gradient(
    135deg,
-   #0f0f0f,
-   #1a1a1a,
-   #000000
+   #0f2027,
+   #203a43,
+   #2c5364
   );
+
+  color:white;
+
+  padding:20px 0;
+
 }
+
+/* CONTAINER */
+
+.container{
+
+  width:95%;
+  max-width:400px;
+
+  margin:auto;
+
+}
+
+/* CARD */
+
+.card{
+
+  background:rgba(0,0,0,0.6);
+
+  padding:20px;
+
+  margin-bottom:20px;
+
+  border-radius:20px;
+
+  border:1px solid rgba(0,242,255,0.4);
+
+  box-shadow:
+  0 0 12px rgba(0,242,255,0.35);
+
+  backdrop-filter:blur(10px);
+
+}
+
+/* TITLE */
+
+.title{
+
+  text-align:center;
+
+  font-size:22px;
+
+  margin-bottom:15px;
+
+  text-shadow:0 0 10px #00f2ff;
+
+}
+
+/* INFO */
+
+.info p{
+
+  margin:8px 0;
+
+  font-size:15px;
+
+}
+
+/* HIGHLIGHT */
+
+.highlight{
+
+  color:#00f2ff;
+
+}
+
+/* INPUTS */
+
+#uid,
+#diamond{
+
+  width:100%;
+
+  height:55px;
+
+  padding:0 15px;
+
+  margin-bottom:15px;
+
+  border:none;
+
+  outline:none;
+
+  border-radius:15px;
+
+  background:#111;
+
+  color:white;
+
+  font-size:16px;
+
+  box-shadow:0 0 10px #00f2ff inset;
+
+}
+
+/* UPLOAD BOX */
 
 .upload-box{
 
-  width:350px;
+  width:100%;
 
   background:rgba(255,255,255,0.05);
 
@@ -199,40 +128,48 @@ body{
 
   backdrop-filter:blur(15px);
 
-  padding:40px 30px;
+  padding:25px 20px;
 
-  border-radius:25px;
+  border-radius:20px;
 
   text-align:center;
 
   box-shadow:
-  0 0 30px rgba(255,215,0,0.15);
+  0 0 25px rgba(255,215,0,0.15);
 
 }
+
+/* UPLOAD TITLE */
 
 .upload-box h2{
 
-  color:#FFD700;
+  color:#ff00ea;
 
-  margin-bottom:30px;
+  margin-bottom:25px;
 
   font-size:28px;
 
-  letter-spacing:1px;
-
 }
+
+/* HIDE FILE INPUT */
 
 input[type="file"]{
+
   display:none;
+
 }
+
+/* CUSTOM FILE BUTTON */
 
 .custom-file{
 
   display:block;
 
+  width:100%;
+
   padding:15px;
 
-  border:2px dashed #FFD700;
+  border:2px dashed #be3380;
 
   border-radius:15px;
 
@@ -240,38 +177,43 @@ input[type="file"]{
 
   cursor:pointer;
 
-  margin-bottom:25px;
+  margin-bottom:20px;
 
   transition:0.3s;
+
+  text-align:center;
+
 }
 
 .custom-file:hover{
 
-  background:rgba(255,215,0,0.1);
+  background:rgba(255,255,255,0.08);
 
   transform:scale(1.02);
 
 }
 
+/* BUTTON */
+
 button{
 
   width:100%;
 
-  padding:15px;
+  height:55px;
 
   border:none;
 
-  border-radius:15px;
+  border-radius:30px;
 
   background:linear-gradient(
    45deg,
-   #FFD700,
-   #ffb300
+   #00ffff,
+   #ff00ff
   );
 
   color:black;
 
-  font-size:17px;
+  font-size:18px;
 
   font-weight:600;
 
@@ -293,6 +235,20 @@ button:hover{
 
 }
 
+/* FILE TEXT */
+
+#fileText{
+
+  color:#FFD700;
+
+  margin-bottom:15px;
+
+  font-size:14px;
+
+}
+
+/* MESSAGE */
+
 #msg{
 
   color:#00ff99;
@@ -307,12 +263,124 @@ button:hover{
 
 }
 
-#fileText{
+/* PREVIEW */
 
-  color:#FFD700;
+.preview{
 
-  margin-top:10px;
+  font-size:13px;
 
-  font-size:14px;
+  color:#aaa;
+
+  margin-top:15px;
+
+  text-align:center;
+
+}
+
+/* BACK BUTTON */
+
+.back{
+
+  width:auto !important;
+
+  padding:8px 15px;
+
+  margin:10px;
+
+  border-radius:10px;
+
+  border:none;
+
+  background:#00f2ff;
+
+  color:black;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  display:inline-block;
+
+  box-shadow:0 0 10px #00f2ff;
+
+}
+
+.back:hover{
+
+  box-shadow:0 0 20px #00f2ff;
+
+}
+
+/* MOBILE */
+
+@media screen and (max-width:768px){
+
+  .container{
+
+    width:95%;
+
+  }
+
+  .card{
+
+  background:rgba(0,0,0,0.6);
+
+  padding:20px;
+
+  margin-bottom:20px;
+
+  border-radius:20px;
+
+  border:1px solid rgba(0,242,255,0.4);
+
+  box-shadow:
+  0 0 12px rgba(0,242,255,0.35);
+
+  backdrop-filter:blur(10px);
+
+}
+
+  .title{
+
+    font-size:20px;
+
+  }
+
+  .upload-box h2{
+
+    font-size:24px;
+
+  }
+
+}
+
+/* SMALL MOBILE */
+
+@media screen and (max-width:480px){
+
+  .title{
+
+    font-size:18px;
+
+  }
+
+  .upload-box h2{
+
+    font-size:22px;
+
+  }
+
+  #uid,
+  #diamond{
+
+    font-size:15px;
+
+  }
+
+  button{
+
+    font-size:16px;
+
+  }
 
 }

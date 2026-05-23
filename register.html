@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PHOENIX TK</title>
 <link rel="stylesheet" href="index.css">
-<link rel="stylesheet" href="media.css">
 <link rel="icon" href="1.jpg">
 </head>
 
@@ -123,6 +122,41 @@ form.addEventListener("submit", async (e) => {
   }
 });
 </script>
+<style>
+/* TABLET */
+@media (max-width: 1024px) {
+  .card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
+/* MOBILE */
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+/* Desktop */
+.container{
+  width: 80%;
+  margin: auto;
+}
+</style>
 </body>
 </html>
